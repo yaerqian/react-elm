@@ -68,13 +68,15 @@
 	// 	setFontSize();
 	// }(window, document));
 	(function (doc, win) {
-		var docEl = doc.documentElement,
-			resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
-			recalc = function () {
-				var clientWidth = docEl.clientWidth;
-				if (!clientWidth) return;
-				docEl.style.fontSize = 20 * (clientWidth / 320) + 'px';
-			};
+		resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+		recalc = function () {
+			var clientWidth = doc.documentElement.clientWidth || win.innerWidth;;
+			if (!clientWidth) return;
+			var rem = 100 * (clientWidth / 375) + 'px'
+			setTimeout(() => {
+				doc.querySelector('html').style.fontSize = rem;
+			}, 300);
+		};
 		if (!doc.addEventListener) return;
 		win.addEventListener(resizeEvt, recalc, false);
 		doc.addEventListener('DOMContentLoaded', recalc, false);

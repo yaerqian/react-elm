@@ -16,6 +16,15 @@
     margin-left: .4rem;
 }
 
+.head_logo {
+    left: 0.4rem;
+    font-weight: 400;
+    font-size: 1rem;
+    @include sc(0.7rem, #fff);
+    @include wh(2.3rem, 0.7rem);
+    @include ct;
+}
+
 .head_login {
     right: 0.55rem;
     @include sc(0.65rem, #fff);
