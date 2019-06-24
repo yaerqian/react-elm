@@ -11,10 +11,10 @@ class Header extends Component {
         const { name } = this.props;
         return (
                 <header id="head_top">
-                    <i class="iconfont head_logo">&#59170;</i>
+                <i className="iconfont head_logo">&#58883;</i>
                     {name === "login" && <h1>login</h1>}
                     {/* {name === "search" && <div>search</div>} */}
-                </header> 
+                </header>
         )
     }
 }

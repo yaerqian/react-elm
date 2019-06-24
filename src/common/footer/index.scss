@@ -1,0 +1,30 @@
+.ele-footer{
+    height: .5rem;
+    width: 100%;
+    position: fixed;
+    z-index: 9999;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    box-sizing: border-box;
+    box-shadow: 0 -0.266667vw 0.533333vw rgba(0, 0, 0, .1);
+    font-size: .12rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #8e8e93;
+    
+    .item{
+        width: 25%;
+        height: .35rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+
+        .iconfont{
+            font-size: .2rem;
+        }
+    }
+}
