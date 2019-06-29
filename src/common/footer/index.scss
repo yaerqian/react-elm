@@ -1,3 +1,5 @@
+$color: #8e8e93;
+
 .ele-footer{
     height: .5rem;
     width: 100%;
@@ -12,7 +14,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: #8e8e93;
+    
     
     .item{
         width: 25%;
@@ -21,10 +23,14 @@
         flex-direction: column;
         justify-content: space-between;
         align-items: center;
-        cursor: pointer;
+        text-decoration: none;
+        color: $color;
 
         .iconfont{
             font-size: .2rem;
         }
+    }
+    .actived{
+        color: #57b1e8;
     }
 }

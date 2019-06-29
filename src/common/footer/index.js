@@ -1,46 +1,49 @@
 import React, { Component } from 'react';
-// import { BrowserRouter as Router, Link } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import './index.scss'
 
+
+@withRouter
 class Footer extends Component {
 
+    constructor(props) {
+        super(props)
+        this.state = {
+            itemList: [
+                { name: '首页', path: '/home', icon: '&#58883' },
+                { name: '发现', path: '/discovery', icon: '&#59070;' },
+                { name: '订单', path: '/order', icon: '&#58904;' },
+                { name: '我的', path: '/mine', icon: '&#58880;' },
+            ],
+            currentIndex: 0
+        }
+    }
 
-    handleClick() {
-        var e = window.event;
-        
-        // if()
+    handleClick(item, index) {
+        this.props.history.push(item)
+        this.setState({
+            currentIndex: index
+        })
     }
 
     render() {
+
+
+        const { itemList, currentIndex } = this.state;
+
         return (
-            // <Router>
-            <div className="ele-footer" onClick={() => this.handleClick()}>
-                <div className="item">
-                    {/* <Link to="/home"> */}
-                        <i className="iconfont">&#58883;</i>
-                        <span>首页</span> 
-                    {/* </Link> */}
-                </div>
-                <div className="item">
-                    {/* <Link to="/discovery"> */}
-                        <i className="iconfont">&#59070;</i>
-                        <span>发现</span>
-                    {/* </Link> */}
-                </div>
-                <div className="item">
-                    {/* <Link to="/order"> */}
-                        <i className="iconfont">&#58904;</i>
-                        <span>订单</span>
-                    {/* </Link> */}
-                </div>
-                <div className="item">
-                    {/* <Link to="/mine"> */}
-                        <i className="iconfont">&#58880;</i>
-                        <span>我的</span>
-                    {/* </Link> */}
-                </div>
-            </div>
-            // </Router>
+            <div className="ele-footer">
+                    {
+                        itemList.map((v, i) => {
+                            return (
+                                <div key={v.name} className={currentIndex === i ? "item actived": "item"} onClick={() => this.handleClick(v.path, i)}>
+                                    <i className="iconfont" dangerouslySetInnerHTML={{__html: v.icon}}></i>
+                                    <span>{v.name}</span>
+                                </div>
+                            )
+                        })
+                    }
+            </div> 
         )
     }
 
