@@ -1,0 +1,69 @@
+
+@import '../../style/mixin.scss';
+
+%header-common {
+    background-image: linear-gradient(90deg, #0af, #0085ff);
+    @include wh(100%, .5rem);
+}
+
+%flex-common {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+
+.header {
+    @extend %header-common;
+    @extend %flex-common;
+    color: #fff;
+    font-size: .16rem;
+    padding-left: .1rem;
+    
+
+    .point-down{
+        //设置向下的三角形
+        border:.05rem solid rgba(111, 111, 111, 0);
+        border-top: .05rem solid #fff;
+        margin-top: .05rem
+    }
+}
+
+.button{
+    @extend %header-common;
+    padding: .1rem;
+    box-sizing: border-box;
+    .inner-button{
+        @extend %flex-common;
+        @include wh(100%, .35rem);
+        background: #ffffff;
+        font-size: .14rem;
+        justify-content: center;
+        color: #989898;
+    }
+}
+
+.select-location{
+    @include fj(center, column);
+
+    img{
+        @include wh(2rem, 2rem);
+    }
+
+    h3 {
+        width: 2rem;
+        font-size: .16rem;
+        color: #6a6a6a;
+        text-align: center;
+        margin: .1rem 0;
+    }
+
+    div:last-child{
+        @include wh(1.2rem, .4rem);
+        background: #87d07b;
+        color: #fff;
+        text-align: center;
+        line-height: .4rem;
+        font-size: .14rem;
+    }
+}

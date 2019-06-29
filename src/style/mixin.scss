@@ -64,8 +64,9 @@ $fc:#fff;
 }
 
 //flex 布局和 子元素 对其方式
-@mixin fj($type: space-between) {
+@mixin fj($type: space-between, $direction: row) {
     display: flex;
     justify-content: $type;
-
+    align-items: center;
+    flex-direction: $direction;
 }
