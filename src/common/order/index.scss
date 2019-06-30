@@ -1,0 +1,24 @@
+@import '../../style/mixin.scss';
+
+.order-not-login {
+    @include wh(100%, 2.8rem);
+    @include fj(center, column);
+    margin-top: 1rem;
+
+    img{
+        @include wh(2rem, 2rem)
+    }
+
+    h3 {
+        width: 2rem;
+        font-size: .16rem;
+        color: #6a6a6a;
+        text-align: center;
+        margin: .1rem 0;
+    }
+
+    div {
+        @include wh(1.2rem, .4rem);
+        @include ele-button();
+    }
+}

@@ -60,10 +60,6 @@
 
     div:last-child{
         @include wh(1.2rem, .4rem);
-        background: #87d07b;
-        color: #fff;
-        text-align: center;
-        line-height: .4rem;
-        font-size: .14rem;
+        @include ele-button();
     }
 }

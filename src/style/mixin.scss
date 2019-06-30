@@ -70,3 +70,11 @@ $fc:#fff;
     align-items: center;
     flex-direction: $direction;
 }
+
+@mixin ele-button{
+    background: #56d176;
+    color: #fff;
+    text-align: center;
+    line-height: .4rem;
+    font-size: .14rem;
+}
