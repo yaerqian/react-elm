@@ -1,0 +1,108 @@
+@import '../../style/mixin.scss';
+
+%header-common {
+    background-image: linear-gradient(90deg, #0af, #0085ff);
+    @include wh(100%, 1.1rem);
+}
+
+
+.mine-content{
+    background: #f5f5f5;
+    height: 100%;
+}
+
+.mine-header {
+    @extend %header-common;
+    padding: .25rem .15rem;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    img{
+        width: .6rem;
+        height: .6rem;
+        border-radius: 50%;
+    }
+
+    .login-conten{
+        width: 100%;
+        margin-left: .1rem;
+    }
+
+    .login{
+        font-size: .22rem;
+        color: #fff;
+        margin-bottom: .05rem;
+    }
+    .info {
+        font-size: .12rem;
+        color: #fff;
+        .iconfont{
+            font-size: .1rem;
+        }
+    }
+
+    .arrow-right{
+        color: #fff;
+    }
+}
+
+.middle-content{
+    @include fj(center, row);
+    background: #fff;
+
+    &>div{
+        width: 50%;
+        height: .8rem;
+        color: #666666;
+        @include fj(center, column);
+        font-size: .14rem;
+        border-bottom:.01rem solid #dddddd;
+
+        i{
+            @include wh(.25rem, .25rem);
+            text-align: center;
+            line-height: .25rem;
+            border-radius: 50%;
+            background: #ff5f3e;
+            color: #fff;
+            font-size: .14rem;
+            margin-bottom: .05rem;
+        }
+
+        .i-second {
+            background: #69c20a;
+        }
+    }
+    &>div:first-child{
+        border-right: .01rem solid #dddddd;
+    }
+        
+}
+
+.selecton{
+    height: .4rem;
+    background: #fff;
+    border-top: .01rem solid #dddddd;
+    border-bottom: .005rem solid #dddddd;
+    margin-top: .1rem;
+    @include fj(space-between, row);
+    padding: 0 .1rem;
+    .inner-text{
+        width: 100%;
+        font-size: .14rem;
+        color: #666666;
+        margin-left: .05rem;
+    }
+
+    .iconfont{
+        font-size: .18rem;
+        color: #bbbbbb;
+    }
+}
+
+.merge{
+    margin-top:0;
+    border-top:none
+}
