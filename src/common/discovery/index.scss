@@ -1,0 +1,76 @@
+@import '../../style/mixin.scss';
+
+
+
+$bakcolor: #fff;
+$h: .12rem;
+
+.discover{
+    @include wh(100%, 100%);
+    background: #f5f5f5;
+    .container{
+        background: $bakcolor;
+        width: 100%;
+        .title {
+            @include wh(100%, .24rem);
+            padding-top: .15rem;
+            padding-bottom: .05rem;
+            line-height: .24rem;
+            font-size: .24rem;
+            font-weight: 600;
+            text-align: center;
+
+        }
+
+        .sub-title {
+            @include wh(100%, $h);
+            line-height: $h;
+            font-size: $h;
+            text-align: center;
+            color: #9b9b9b;
+        }
+
+        .activelist{
+            display: flex;
+            justify-content: flex-start;
+            .item{
+                padding: .1rem;
+                width: 33%;
+                .itemTitle{
+                    color: #fff;
+                    background: #000;
+                    font-size: .12rem;
+                }
+                img{
+                    @include wh(1.1rem, 1.1rem);
+                    display: block;
+                }
+
+                .itemName{
+                    font-size: .13rem;
+                    color: #333333;
+                }
+
+                .coin{
+                    color: #ff816f;
+                    font-size: .13rem;
+                }
+
+                .noCost{
+                    font-size: .12rem;
+                    color: #9b9b9b;
+                    text-decoration: line-through;
+                }
+            }
+        }
+
+        .showMore{
+            @include wh(100%, .4rem);
+            padding: .1rem 0;
+            font-size: .14rem;
+            color: #9b9b9b;
+            text-align: center;
+            line-height: .4rem;
+        }
+    }
+}
