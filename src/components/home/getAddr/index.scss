@@ -1,0 +1,68 @@
+@import '@/style/mixin.scss';
+
+%header-common {
+    background-image: linear-gradient(90deg, #0af, #0085ff);
+    @include wh(100%, .5rem);
+}
+
+%flex-common {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.get-addr{
+    width: 100%;
+    height: 100%;
+    background: #f4f4f4;
+    .select-addr-header {
+        @extend %header-common;
+        @extend %flex-common;
+        justify-content: flex-start;
+        color: #fff;
+        font-size: .16rem;
+        padding-left: .1rem;
+    }
+
+    .select-addr{
+        @extend %flex-common;
+        @include wh(100%, .55rem);
+        background: #fff;
+        padding: 0 .15rem;
+        box-sizing: border-box;
+
+        .select-addr-select {
+            font-size: .12rem;
+            color: #333;
+            @extend %flex-common;
+            
+            .select-point-down {
+                //设置向下的三角形
+                display: inline-block;
+                border: .05rem solid rgba(111, 111, 111, 0);
+                border-top: .05rem solid #333;
+                margin-top: .05rem
+            }
+        }
+
+        .select-addr-input {
+            width: 2.8rem;
+            height: .35rem;
+            @extend %flex-common;
+            justify-content: flex-start;
+            color: #979797;
+            padding:0 .1rem;
+            box-sizing: border-box;
+            @extend %flex-common;
+            background: #f4f4f4;
+            input{
+                background: #f4f4f4;
+                border: none;
+                color: #979797;
+                font-size: .14rem;
+                outline: none;
+            }
+        }
+    }
+}
+

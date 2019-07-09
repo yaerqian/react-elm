@@ -12,10 +12,10 @@ import {
 
 
 
-import Home from './common/home';
-import Discovery from './common/discovery'
-import Order from './common/order'
-import Mine from './common/mine'
+import Home from './components/home';
+import Discovery from './components/discovery'
+import Order from './components/order'
+import Mine from './components/mine'
 
 
 function App() {
@@ -28,7 +28,7 @@ function App() {
 				<Switch>
 					<Fragment>
 						{/* <IndexRoute component={Home} /> */}
-						<Route path="/home" exact component={Home}></Route>
+						{/* <Route path="/home" exact component={Home}></Route> */}
 						{/* 发现页 */}
 						<Route path="/discovery" exact component={Discovery}></Route>
 						{/* 订单页 */}

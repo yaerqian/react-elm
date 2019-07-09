@@ -10,7 +10,7 @@ class Footer extends Component {
         super(props)
         this.state = {
             itemList: [
-                { name: '首页', path: '/home', icon: '&#xe603;' },
+                { name: '首页', path: '/', icon: '&#xe603;' },
                 { name: '发现', path: '/discovery', icon: '&#xe6be;' },
                 { name: '订单', path: '/order', icon: '&#xe618;' },
                 { name: '我的', path: '/mine', icon: '&#xe600;' },

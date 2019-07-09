@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import './index.scss'
-import nonegif from '../../static/image/download.gif'
+import nonegif from '../../../static/image/download.gif'
 
-class Home extends Component {
+class NoAddr extends Component {
 
     render() {
-        return(
+        return (
             <div>
                 <div className="header">
                     <i className="iconfont icon-location"></i>
@@ -22,7 +22,7 @@ class Home extends Component {
                     </div>
                 </div>
                 <div className="select-location">
-                    <img src={nonegif} alt=""/>
+                    <img src={nonegif} alt="" />
                     <h3>
                         输入地址后才能订餐哦！
                     </h3>
@@ -33,7 +33,6 @@ class Home extends Component {
             </div>
         )
     }
-
 }
 
-export default Home;
+export default NoAddr;
