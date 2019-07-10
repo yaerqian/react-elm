@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './index.scss'
-import nonegif from '../../../static/image/download.gif'
+import nonegif from '@/static/image/download.gif'
 
 class NoAddr extends Component {
 
