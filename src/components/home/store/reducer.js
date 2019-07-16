@@ -1,4 +1,4 @@
-// import * as actionTypes from './actionType'
+import * as actionTypes from './actionTypes'
 import {
     fromJS
 } from 'immutable'
@@ -8,8 +8,9 @@ const defaultState = fromJS({
 });
 
 export default (state = defaultState, action) => {
-    switch (action.type) {
-        default:
-            return state
+    if (action.type === actionTypes.TOGGLE_ADDR_STATUS) {
+        return state.set('hadAddrAuto', action.status)
     }
+
+    return state;
 }
