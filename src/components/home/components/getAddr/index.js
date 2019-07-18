@@ -1,14 +1,16 @@
 import React, { Component } from 'react'
 import './index.scss'
-
-
-class NoAddr extends Component {
+import { connect } from 'react-redux';
+import { actionCreator } from '../../store' 
+import { withRouter } from 'react-router-dom'
+@withRouter
+class GetAddr extends Component {
 
     render() {
         return (
             <div className="get-addr">
                 <div className="select-addr-header">
-                    <i className="iconfont">&#58956;</i>
+                    <i className="iconfont" onClick={() => this.goback()}>&#58956;</i>
                     &nbsp;
                     <span>选择收货地址</span>
                 </div>
@@ -27,6 +29,29 @@ class NoAddr extends Component {
         )
     }
 
+    goback() {
+        if (!this.props.hadAddrAuto) {
+            this.props.history.push('/home/noaddr')
+        }
+    }
+
 }
 
-export default NoAddr;
+const mapStateToProps = (state) => {
+    return {
+        hadAddrAuto: state.getIn(['home', 'hadAddrAuto'])
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        handleAddrStatus(status) {
+            dispatch(actionCreator.toggleAddrStatus(status))
+        }
+    }
+}
+
+export default connect(
+    mapStateToProps, mapDispatchToProps
+)(GetAddr);
+// export default ;

@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-import NoAddr from './components/noAddr'
-import GetAddr from './components/getAddr'
-
+import {
+    withRouter,
+} from 'react-router-dom'
 import { actionCreator } from './store' 
-
+@withRouter
 class Home extends Component {
     // constructor(props) {
     //     super(props);
@@ -15,33 +15,20 @@ class Home extends Component {
 
 
     render() {
-        const { hadAddrAuto } = this.props
-
         return(
             <div style={{height: '100%'}}>
-                {
-                    this.tabAddr(hadAddrAuto)
-                }
+                首页商品页
             </div>
         )
     }
 
-    tabAddr(hadAddrAuto) {
-        if (hadAddrAuto) {
-            return (
-                <GetAddr></GetAddr>
-            )
-        } else {
-            return (
-                <NoAddr></NoAddr>
-            )
-        }
-    }
-
     componentDidMount() {
+
         // console.log(store)
         setTimeout(() => {
-            this.props.handleAddrStatus(true)            
+            if (!this.props.hadAddrAuto) {
+                this.props.history.push('/home/getAddr')
+            }           
         }, 2000);
     }
 }
@@ -51,14 +38,7 @@ const mapStateToProps = (state) => {
     }
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        handleAddrStatus(status) {
-            dispatch(actionCreator.toggleAddrStatus(status))
-        }
-    }
-}
 // export default ;
 export default connect(
-    mapStateToProps, mapDispatchToProps
+    mapStateToProps, null
 )(Home);

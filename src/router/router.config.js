@@ -1,25 +1,39 @@
-import React from 'react';
-import { Router,  Route, IndexRoute, hashHistory } from 'react-router-dom';
-import Home from '../common/home';
-import Discovery from '../common/discovery'
-import Order from '../common/order'
-import Mine from '../common/mine'
+import React, { Fragment } from 'react';
+import {
+    BrowserRouter,
+    Switch,
+    Route
+} from 'react-router-dom'
+import Home from '../components/home';
+import Discovery from '../components/discovery'
+import Order from '../components/order'
+import Mine from '../components/mine'
+import Footer from '../common/footer/index'
+import NoAddr from '../components/home/components/noAddr'
+import GetAddr from '../components/home/components/getAddr'
 
 
-export default () => (
-    // hash 模式路由
-    <Router history={hashHistory}>
-        <Route>
-            {/* 默认路由 */}
-            <IndexRoute component={Home} />
-            {/* 首页 */}
-            <Route path="/home" component={Home}></Route>
-            {/* 发现页 */}
-            <Route path="/discovery" component={Discovery}></Route>
-            {/* 订单页 */}
-            <Route path="/order" component={Order}></Route>
-            {/* 我的 */}
-            <Route path="/mine" component={Mine}></Route>
-        </Route>
-    </Router>
+const BasicRouter = () => (
+    <BrowserRouter>
+        <Switch>
+            <Fragment>
+                {/* <IndexRoute component={Home} /> */}
+                <Route path="/home" exact component={Home}></Route>
+                <Route path="/home/getAddr" exact component={GetAddr}></Route>
+                {/* 订单页 */}
+                <Route path="/home/noAddr" exact component={NoAddr}></Route>
+                {/* 发现页 */}
+                <Route path="/discovery" exact component={Discovery}></Route>
+                {/* 订单页 */}
+                <Route path="/order" exact component={Order}></Route>
+                {/* 我的 */}
+                <Route path="/mine" exact component={Mine}></Route>
+                <Route path="/" exact component={Home}></Route>
+
+                <Footer />
+            </Fragment>
+        </Switch>
+    </BrowserRouter>
 )
+
+export default BasicRouter;

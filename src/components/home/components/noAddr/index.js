@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import './index.scss'
 import nonegif from '@/static/image/download.gif'
-
+import { withRouter } from 'react-router-dom'
+@withRouter
 class NoAddr extends Component {
 
     render() {
@@ -26,13 +27,20 @@ class NoAddr extends Component {
                     <h3>
                         输入地址后才能订餐哦！
                     </h3>
-                    <div>
+                    <div onClick={() => {this.toGetAddr()}}>
                         手动选择地址
                     </div>
                 </div>
             </div>
         )
     }
+
+    toGetAddr() {
+        this.props.history.push('/home/getAddr')
+    }
 }
 
+
+
 export default NoAddr;
+
