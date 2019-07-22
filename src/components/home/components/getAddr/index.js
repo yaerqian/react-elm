@@ -31,7 +31,15 @@ class GetAddr extends Component {
 
     goback() {
         if (!this.props.hadAddrAuto) {
-            this.props.history.push('/home/noaddr')
+            this.props.history.push({
+                pathname: '/home/noaddr',
+                params: {
+                    fromPosition: true
+                },
+                // query: {
+                //     user: 'wh'
+                // }
+            })
         }
     }
 
