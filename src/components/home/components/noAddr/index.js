@@ -10,6 +10,7 @@ class NoAddr extends Component {
     constructor() {
         super();
         this.state = {
+            // 定位中的状态 只有页面第一次加载的时候显示
             loadingPosition: true,
         }
     }
@@ -21,7 +22,7 @@ class NoAddr extends Component {
                     <i className="iconfont icon-location"></i>
                     &nbsp;
                     <span>{this.state.loadingPosition ? '正在定位...' : 
-                        this.props.hadAddrAuto ? '水银城':'未能获取地址'}</span>
+                        this.props.hadAddrAuto ? this.props.address:'未能获取地址'}</span>
                     &nbsp;
                     <div className="point-down"></div>
                 </div>
@@ -32,7 +33,7 @@ class NoAddr extends Component {
                         <span>搜索饿了么商家、商品名称</span>
                     </div>
                 </div>
-                {this.getPosition()}
+                {this.props.hadAddrAuto? this.getIndexInfo() : this.getPosition()}
             </div>
         )
     }
@@ -52,9 +53,20 @@ class NoAddr extends Component {
         )
     }
 
+    getIndexInfo() {
+        return(
+            <div>
+                有地址信息了，加载首页信息
+            </div>
+        )
+    }
+
     componentDidMount() {
         if (this.props.hadAddrAuto) {
             // dosomething such as get data
+            this.setState({
+                loadingPosition: false
+            })
         }else {
             this.setState({
                 loadingPosition: true
@@ -79,7 +91,8 @@ class NoAddr extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        hadAddrAuto: state.getIn(['home', 'hadAddrAuto'])
+        hadAddrAuto: state.getIn(['home', 'hadAddrAuto']),
+        address: state.getIn(['home', 'address'])
     }
 }
 

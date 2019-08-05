@@ -66,3 +66,18 @@
     }
 }
 
+.addr-list{
+    & div:first-child{
+        border-top: .01rem solid #f3f3f3;
+    }
+    div{
+        font-size: .16rem;
+        color: #333;
+        height: .3rem;
+        line-height: .3rem;
+        padding: .05rem .1rem;
+        background: #fff;
+        border-bottom: .01rem solid #f3f3f3;
+
+    }
+}
