@@ -11,7 +11,9 @@ class HomePage extends Component {
     render() {
         return (
             <div>
-                <EleSwapper></EleSwapper>
+                <EleSwapper
+                    swapperList={[{ src: '23', name: '美食' },{src:'23',name:'特惠'}]}
+                ></EleSwapper>
             </div>
         )
     }

@@ -1,0 +1,38 @@
+.swapper{
+    width: 100%;
+    overflow: hidden;
+
+    .swapper-list {
+        display: flex;
+        justify-content: flex-start;
+        width: 200%;
+
+
+        .swapper-content {
+            // float: left;
+            width: 3.75rem;
+            height: 1.75rem;
+            // background: red;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+
+            .swapper-item {
+                width: 20%;
+                height: 45%;
+                // background: gray;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
+                align-items: center;
+                font-size: .12rem;
+                color: #666;
+
+                img {
+                    width: .45rem;
+                    height: .45rem;
+                }
+            }
+        }
+    }
+}
