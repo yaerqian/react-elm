@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import {
     withRouter,
 } from 'react-router-dom'
-import { actionCreator } from './store' 
+// import { actionCreator } from './store' 
 @withRouter
 class Home extends Component {
     // constructor(props) {

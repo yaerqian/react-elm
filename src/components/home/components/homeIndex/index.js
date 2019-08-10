@@ -3,7 +3,8 @@ import './index.scss'
 import nonegif from '@/static/image/download.gif'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
-import { actionCreator } from '@/store' 
+// import { actionCreator } from '@/store';
+import GoodsInfo from '../goodsPage'
 @withRouter
 class NoAddr extends Component {
 
@@ -43,9 +44,7 @@ class NoAddr extends Component {
         return(
             <div className="select-location">
                 <img src={nonegif} alt="" />
-                <h3>
-                    输入地址后才能订餐哦！
-                    </h3>
+                <h3>输入地址后才能订餐哦！</h3>
                 <div onClick={() => { this.toGetAddr() }}>
                     手动选择地址
                     </div>
@@ -53,11 +52,10 @@ class NoAddr extends Component {
         )
     }
 
+    // 获取地址信息之后加载商品信息
     getIndexInfo() {
         return(
-            <div>
-                有地址信息了，加载首页信息
-            </div>
+            <GoodsInfo></GoodsInfo>
         )
     }
 

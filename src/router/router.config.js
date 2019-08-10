@@ -4,12 +4,12 @@ import {
     Switch,
     Route
 } from 'react-router-dom'
-import Home from '../components/home';
+// import Home from '../components/home';
 import Discovery from '../components/discovery'
 import Order from '../components/order'
 import Mine from '../components/mine'
 import Footer from '../common/footer/index'
-import NoAddr from '../components/home/components/noAddr'
+import NoAddr from '../components/home/components/homeIndex'
 import GetAddr from '../components/home/components/getAddr'
 
 
@@ -18,7 +18,7 @@ const BasicRouter = () => (
         <Switch>
             <Fragment>
                 {/* <IndexRoute component={Home} /> */}
-                <Route path="/home" exact component={Home}></Route>
+                {/* <Route path="/home" exact component={Home}></Route> */}
                 <Route path="/home/getAddr" exact component={GetAddr}></Route>
                 {/* 订单页 */}
                 <Route path="/home/noAddr" exact component={NoAddr}></Route>
@@ -28,7 +28,7 @@ const BasicRouter = () => (
                 <Route path="/order" exact component={Order}></Route>
                 {/* 我的 */}
                 <Route path="/mine" exact component={Mine}></Route>
-                <Route path="/" exact component={Home}></Route>
+                <Route path="/" exact component={NoAddr}></Route>
 
                 <Footer />
             </Fragment>
