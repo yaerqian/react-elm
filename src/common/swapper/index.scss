@@ -3,19 +3,39 @@
     overflow: hidden;
 
     .swapper-list {
-        display: flex;
-        justify-content: flex-start;
-        width: 200%;
+        // display: flex;
+        // justify-content: flex-start;
+        width: 7.5rem;
+        height: 2rem;
+        position: relative;
 
+        // .first-container {
+        //     transform: translateX(-10%);
+        // }
+
+        // .second-container {
+        //     transform: translateX(-10%);
+        // }
+        .end-transtion {
+            transition: all linear .3s;
+        }
+
+        .test {
+            background: blue !important;
+        }
 
         .swapper-content {
             // float: left;
+            position: absolute;
             width: 3.75rem;
             height: 1.75rem;
-            // background: red;
+            background: red;
+            // position: relative;
+            // left: -10%;
             display: flex;
             flex-wrap: wrap;
             justify-content: flex-start;
+
 
             .swapper-item {
                 width: 20%;
