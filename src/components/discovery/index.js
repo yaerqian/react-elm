@@ -22,7 +22,7 @@ class Discovery extends Component {
                     "url": "https://fuss10.elemecdn.com/e/b5/605a11eae79849240113271dd1b94jpeg.jpeg?imageMogr/format/webp/"
                 },
                 {
-                    "corner_marker": "特价换购",
+                    "corner_marker": "热门商品",
                     "image_hash": "5785c1ca7ceca079926933ca418c9eb7jpeg",
                     "original_price": 99,
                     "points_required": 9,
@@ -47,7 +47,7 @@ class Discovery extends Component {
                         {
                             this.state.activeList.map(i => {
                                 return (
-                                    <div className="item" key={i.id}>
+                                    <div className="item" key={i.corner_marker}>
                                         <span className="itemTitle">
                                             {i.corner_marker}
                                         </span>

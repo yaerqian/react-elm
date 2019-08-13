@@ -7,6 +7,8 @@ export default class EleSwapper extends Component {
     constructor(props) {
         super(props);
         this.handleTouchMove = this.handleTouchMove.bind(this);
+        this.handleTouchStart = this.handleTouchStart.bind(this);
+        this.handleTouchEnd = this.handleTouchEnd.bind(this);
         this.state = {
             // 中间显示的容器的起始位置
             showContainer: {
@@ -17,8 +19,9 @@ export default class EleSwapper extends Component {
                 transform: 'translateX(3.75rem)',
             },
 
-            // touchStart 事件起始位置
-            touchStartPosition: 0,
+            // touchStart 事件起始x位置
+            touchStartPositionX: 0,
+            touchStartPositionY: 0,
             // touch 事件结束添加动画
             isEnd: false,
             // 滑动的方向
@@ -50,7 +53,7 @@ export default class EleSwapper extends Component {
                                     data-type={item}
                                     className={`${this.state.isEnd ? 'end-transtion swapper-content' : 'swapper-content'} ${item === 'first'? '':'test'}`}
                                     style={this.state[item === 'first' ? 'showContainer' :'unShowContainer']}
-                                    onTouchMove={(e) => this.handleTouchMove(e)}
+                                    // onTouchMove={(e) => this.handleTouchMove(e)}
                                     onTouchStart={(e) => this.handleTouchStart(e)}
                                     onTouchEnd={(e) => this.handleTouchEnd(e)}
                                 >
@@ -62,39 +65,43 @@ export default class EleSwapper extends Component {
                 </div>
             </div>
         )
-
-        
     }
 
     handleTouchMove(e) {
-        e.persist()
+        // e.persist();
         // 移动的距离
-        let transLen = (e.targetTouches[0]['pageX'] - this.state.touchStartPosition) / 100;
+        let transLen = (e.targetTouches[0]['pageX'] - this.state.touchStartPositionX) / 100;
+        let transLenY = (e.targetTouches[0]['pageY'] - this.state.touchStartPositionY) / 100;
+        // 比较横向和纵向的移动距离 判断是要横向滚动还是纵向滚动
+        if (Math.abs(transLen) > Math.abs(transLenY)) {
+            e.preventDefault()
+        }
         this.setState({
             direction: transLen > 0 ? 'right' : 'left'
         })
-        console.log(this.state.currnetDisplay,this.state.direction)
-        if(this.state.currnetDisplay === 'first' && this.state.direction === 'left') {
+        console.log(this.state.currnetDisplay,this.state.direction,transLen)
+        if(this.state.currnetDisplay === 'first') {
             this.setState({
                 showContainer: {
                     transform: `translateX(${transLen}rem)`
                 },
                 unShowContainer: {
-                    transform: `translateX(${transLen > 0 ? (-3.75 + transLen) : (3.75 + transLen)}rem)`,
+                    transform: `translateX(${(this.state.direction === 'left'? 3.75 : -3.75) + transLen}rem)`,
                 },
             })
         }
-        if (this.state.currnetDisplay === 'second' && this.state.direction === 'right') {
+ 
+        
+        if(this.state.currnetDisplay === 'second') {
             this.setState({
                 showContainer: {
-                    transform: `translateX(${-3.75+transLen}rem)`
+                    transform: `translateX(${(this.state.direction === 'left' ? 3.75 : -3.75) + transLen}rem)`
                 },
                 unShowContainer: {
-                    transform: `translateX(${transLen}rem)`,
-                },
+                    transform: `translateX(${transLen}rem)`
+                }
             })
         }
-        
     }
 
     handleTouchStart(e) {
@@ -104,7 +111,8 @@ export default class EleSwapper extends Component {
         this.setState({
             isEnd: false,
             currnetDisplay: target,
-            touchStartPosition: e.targetTouches[0]['pageX']
+            touchStartPositionX: e.targetTouches[0]['pageX'],
+            touchStartPositionY: e.targetTouches[0]['pageY']
         })
     }
 
@@ -112,39 +120,80 @@ export default class EleSwapper extends Component {
     // 处理 touchEnd 事件 需要使用 changedTouches  属性  targetTouched 属性为空
     handleTouchEnd(e) {
         e.persist();
+        // 滑动的长度
+        let moveLen = (e.changedTouches[0]['pageX'] - this.state.touchStartPositionX) / 100;
+        if(moveLen === 0) {// 解决点击事件 会引起后续函数的执行
+            return;
+        }
         this.setState({
             isEnd: true,
         })
-        // 滑动的长度
-        let moveLen = (e.changedTouches[0]['pageX'] - this.state.touchStartPosition) / 100;
+        
         // 划过去的容器
         // let target = e.targetTouches[0]['target']['dataset']['type'];
         console.log(this.state.direction)
         let toLeft = this.state.direction === 'left';
-        if (Math.abs(moveLen) > 1.85){
-            this.setState({
-                showContainer: {
-                    transform: `translateX(${toLeft ? -3.75 : 0}rem)`
-                },
-                unShowContainer: {
-                    transform: `translateX(${toLeft ? 0 : 3.75}rem)`,
-                },
-                // currnetDisplay: target
-            })
+        if (Math.abs(moveLen) > 1){
+            if(this.state.currnetDisplay === 'first') {
+                this.setState({
+                    showContainer: {
+                        transform: `translateX(${toLeft ? -3.75 : 3.75}rem)`
+                    },
+                    unShowContainer: {
+                        transform: `translateX(0rem)`,
+                    },
+                    // currnetDisplay: target
+                })
+            }else{
+                this.setState({
+                    showContainer: {
+                        transform: `translateX(0rem)`
+                    },
+                    unShowContainer: {
+                        transform: `translateX(${toLeft ? -3.75 : 3.75}rem)`,
+                    },
+                    // currnetDisplay: target
+                })
+            }
+            
         }else{
-            this.setState({
-                showContainer: {
-                    transform: `translateX(0rem)`
-                },
-                unShowContainer: {
-                    transform: `translateX(3.75rem)`,
-                },
-            })
+            if(this.state.currnetDisplay === 'first') {
+                this.setState({
+                    showContainer: {
+                        transform: `translateX(0rem)`
+                    },
+                    unShowContainer: {
+                        transform: `translateX(${toLeft ? 3.75 : -3.75}rem)`,
+                    },
+                })
+            }else{
+                this.setState({
+                    showContainer: {
+                        transform: `translateX(${toLeft ? 3.75 : -3.75}rem)`
+                    },
+                    unShowContainer: {
+                        transform: `translateX(0rem)`,
+                    },
+                })
+            }
+            
         }
     }
 
     componentDidMount() {
-        console.log(this.props)
+        console.log(this.props);
+        let swapperItem = document.getElementsByClassName('swapper-content');
+        // 给元素添加事件监听 并设置 passive 为false
+        // touchmove 阻止默认事件 防止横向滚动的时候 页面纵向滚动
+        for (let i = 0; i < swapperItem.length;i++ ) {
+            swapperItem[i].addEventListener('touchmove', (e) => {
+                this.handleTouchMove(e);
+            }, {
+                passive: false // 禁止 passive 效果
+            })
+            // 设置 passive 为 true 的时候 listener 永远不会调用 preventDefault（）
+            // 反之 可以调用 preventDefault()
+        }
     }
 }
 
