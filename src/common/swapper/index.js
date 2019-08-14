@@ -27,7 +27,9 @@ export default class EleSwapper extends Component {
             // 滑动的方向
             direction: '',
             // 当前显示的是哪一个容器
-            currnetDisplay: 'first'
+            currnetDisplay: 'first',
+            // 当前显示的卡片
+            currentIndex: 0
         }
     }
 
@@ -41,6 +43,8 @@ export default class EleSwapper extends Component {
                 </div>
             )
         })
+
+        
 
         return(
             <div className="swapper">
@@ -59,6 +63,16 @@ export default class EleSwapper extends Component {
                                 >
                                     {swapperList}
                                 </div>
+                            )
+                        })
+                    }           
+                </div>
+
+                <div className="swapper-tip">
+                    {
+                        this.props.swapperList.map((item, index) => {
+                            return (
+                                <div key={item.name} className={`swapper-tip-item ${this.state.currentIndex === index ? 'swapper-tip-active' : ''}`}></div>
                             )
                         })
                     }
@@ -155,6 +169,32 @@ export default class EleSwapper extends Component {
                     // currnetDisplay: target
                 })
             }
+
+            let indexOfCurrent = this.state.currentIndex;
+            let listLength = this.props.swapperList.length;
+           
+            if(toLeft) {
+                if (indexOfCurrent === 0) {
+                    this.setState({
+                        currentIndex: listLength - 1
+                    })
+                }else{
+                    this.setState({
+                        currentIndex: indexOfCurrent - 1
+                    })
+                }
+            }else{
+                if (indexOfCurrent === listLength - 1) {
+                    this.setState({
+                        currentIndex: 0
+                    })
+                }else{
+                    this.setState({
+                        currentIndex: indexOfCurrent + 1
+                    })
+                }
+            }
+            
             
         }else{
             if(this.state.currnetDisplay === 'first') {

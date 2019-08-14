@@ -3,19 +3,11 @@
     overflow: hidden;
 
     .swapper-list {
-        // display: flex;
-        // justify-content: flex-start;
+
         width: 3.75rem;
-        height: 2rem;
+        height: 1.75rem;
         position: relative;
 
-        // .first-container {
-        //     transform: translateX(-10%);
-        // }
-
-        // .second-container {
-        //     transform: translateX(-10%);
-        // }
         .end-transtion {
             transition: all linear .3s;
         }
@@ -53,6 +45,23 @@
                     height: .45rem;
                 }
             }
+        }
+    }
+
+    .swapper-tip{
+        height: .1rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        &-item{
+            width: .09rem;
+            height: .02rem;
+            margin: 0 .01rem;
+            background: #000;
+            opacity: .2;
+        }
+        &-active{
+            background: #fe7100;
         }
     }
 }
