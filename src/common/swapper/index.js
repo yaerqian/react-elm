@@ -9,6 +9,7 @@ export default class EleSwapper extends Component {
         this.handleTouchMove = this.handleTouchMove.bind(this);
         this.handleTouchStart = this.handleTouchStart.bind(this);
         this.handleTouchEnd = this.handleTouchEnd.bind(this);
+        this.getSwapperList = this.getSwapperList.bind(this);
         this.state = {
             // 中间显示的容器的起始位置
             showContainer: {
@@ -29,20 +30,17 @@ export default class EleSwapper extends Component {
             // 当前显示的是哪一个容器
             currnetDisplay: 'first',
             // 当前显示的卡片
-            currentIndex: 0
+            currentIndex: 0,
+            // 
+            first: 0,
+            //
+            second: 1
         }
     }
 
     render() {
 
-        const swapperList = this.props.swapperList.map(item => {
-            return (
-                <div className="swapper-item" key={item.name}>
-                    <img src={item.src} alt="" />
-                    <div>{item.name}</div>
-                </div>
-            )
-        })
+         
 
         
 
@@ -61,7 +59,7 @@ export default class EleSwapper extends Component {
                                     onTouchStart={(e) => this.handleTouchStart(e)}
                                     onTouchEnd={(e) => this.handleTouchEnd(e)}
                                 >
-                                    {swapperList}
+                                    {this.getSwapperList(this.props.swapperList[`${this.state[item]}`])}
                                 </div>
                             )
                         })
@@ -79,6 +77,18 @@ export default class EleSwapper extends Component {
                 </div>
             </div>
         )
+    }
+
+    getSwapperList(currentList) {
+        console.log(currentList)
+        return currentList.map(item => {
+            return (
+                <div className="swapper-item" key={item.name}>
+                    <img src={item.src} alt="" />
+                    <div>{item.name}</div>
+                </div>
+            )
+        })
     }
 
     handleTouchMove(e) {
@@ -134,6 +144,7 @@ export default class EleSwapper extends Component {
     // 处理 touchEnd 事件 需要使用 changedTouches  属性  targetTouched 属性为空
     handleTouchEnd(e) {
         e.persist();
+        const total = this.props.swapperList.length;
         // 滑动的长度
         let moveLen = (e.changedTouches[0]['pageX'] - this.state.touchStartPositionX) / 100;
         if(moveLen === 0) {// 解决点击事件 会引起后续函数的执行
