@@ -9,7 +9,6 @@ export default class EleSwapper extends Component {
         this.handleTouchMove = this.handleTouchMove.bind(this);
         this.handleTouchStart = this.handleTouchStart.bind(this);
         this.handleTouchEnd = this.handleTouchEnd.bind(this);
-        this.getSwapperList = this.getSwapperList.bind(this);
         this.state = {
             // 中间显示的容器的起始位置
             showContainer: {
@@ -34,15 +33,27 @@ export default class EleSwapper extends Component {
             // 
             first: 0,
             //
-            second: 1
+            second: 1,
+            // 是否是第一次滑动 如果是第一次滑动 页数不做处理
+            isFirstMove: true
+        
         }
     }
 
     render() {
 
-         
-
-        
+        const List = this.props.swapperList.reduce((final,item) => {
+            let innerItem = item.map((v) => {
+                return (
+                    <div className="swapper-item" key={v.name}>
+                        <img src={v.src} alt="" />
+                        <div>{v.name}</div>
+                    </div>
+                )
+            })
+            final.push(innerItem);
+            return final;
+        },[])
 
         return(
             <div className="swapper">
@@ -56,10 +67,13 @@ export default class EleSwapper extends Component {
                                     className={`${this.state.isEnd ? 'end-transtion swapper-content' : 'swapper-content'} ${item === 'first'? '':'test'}`}
                                     style={this.state[item === 'first' ? 'showContainer' :'unShowContainer']}
                                     // onTouchMove={(e) => this.handleTouchMove(e)}
-                                    onTouchStart={(e) => this.handleTouchStart(e)}
-                                    onTouchEnd={(e) => this.handleTouchEnd(e)}
+                                    onTouchStart={(e) => this.handleTouchStart(e, item)}
+                                    onTouchEnd={(e) => this.handleTouchEnd(e, item)}
                                 >
-                                    {this.getSwapperList(this.props.swapperList[`${this.state[item]}`])}
+                                    {/* 
+                                        这里由之前的函数获取 改为 静态变量获取 防止修改 transtion 这个state的时候render 函数一直刷新 造成 这里的 getSwapperList 函数一直执行
+                                    */}
+                                    {List[`${this.state[item]}`] }
                                 </div>
                             )
                         })
@@ -79,21 +93,13 @@ export default class EleSwapper extends Component {
         )
     }
 
-    getSwapperList(currentList) {
-        console.log(currentList)
-        return currentList.map(item => {
-            return (
-                <div className="swapper-item" key={item.name}>
-                    <img src={item.src} alt="" />
-                    <div>{item.name}</div>
-                </div>
-            )
-        })
-    }
+
 
     handleTouchMove(e) {
         // e.persist();
         // 移动的距离
+        const total = this.props.swapperList.length;
+
         let transLen = (e.targetTouches[0]['pageX'] - this.state.touchStartPositionX) / 100;
         let transLenY = (e.targetTouches[0]['pageY'] - this.state.touchStartPositionY) / 100;
         // 比较横向和纵向的移动距离 判断是要横向滚动还是纵向滚动
@@ -105,6 +111,19 @@ export default class EleSwapper extends Component {
         })
         console.log(this.state.currnetDisplay,this.state.direction,transLen)
         if(this.state.currnetDisplay === 'first') {
+            if (total > 2) {// 如果只有两页 则不做任何页数处理
+                if (this.state.direction === 'left' && !this.state.isFirstMove) {
+                    this.setState({
+                        second: this.state.second === total - 1 ? 0 : (this.state.first + 1)
+                    })
+                } else if (this.state.direction === 'right'){
+                    // 向右滑动
+                    this.setState({
+                        second: this.state.first === 0 ? total - 1 : (this.state.first - 1)                        
+                    })
+                }
+            }
+            
             this.setState({
                 showContainer: {
                     transform: `translateX(${transLen}rem)`
@@ -117,6 +136,18 @@ export default class EleSwapper extends Component {
  
         
         if(this.state.currnetDisplay === 'second') {
+            if (total > 2 ) {// 如果只有两页 则不做任何页数处理
+                if (this.state.direction === 'left' && !this.state.isFirstMove) {
+                    this.setState({
+                        first: this.state.first === total - 1 ? 0 : (this.state.second + 1)
+                    })
+                } else if (this.state.direction === 'right'){
+                    // 向右滑动
+                    this.setState({
+                        first: this.state.second === 0 ? total - 1 : (this.state.second - 1)
+                    })
+                }
+            }
             this.setState({
                 showContainer: {
                     transform: `translateX(${(this.state.direction === 'left' ? 3.75 : -3.75) + transLen}rem)`
@@ -128,9 +159,11 @@ export default class EleSwapper extends Component {
         }
     }
 
-    handleTouchStart(e) {
+    handleTouchStart(e, item) {
         e.persist()
-        let target = e.targetTouches[0]['target']['dataset']['type'];
+        console.log(e, item)
+        // 分页总数
+        let target = item;
         console.log(target)
         this.setState({
             isEnd: false,
@@ -144,7 +177,6 @@ export default class EleSwapper extends Component {
     // 处理 touchEnd 事件 需要使用 changedTouches  属性  targetTouched 属性为空
     handleTouchEnd(e) {
         e.persist();
-        const total = this.props.swapperList.length;
         // 滑动的长度
         let moveLen = (e.changedTouches[0]['pageX'] - this.state.touchStartPositionX) / 100;
         if(moveLen === 0) {// 解决点击事件 会引起后续函数的执行
@@ -159,6 +191,9 @@ export default class EleSwapper extends Component {
         console.log(this.state.direction)
         let toLeft = this.state.direction === 'left';
         if (Math.abs(moveLen) > 1){
+            this.setState({
+                isFirstMove: false
+            })
             if(this.state.currnetDisplay === 'first') {
                 this.setState({
                     showContainer: {

@@ -29,18 +29,22 @@ class HomePage extends Component {
                     { src: src1, name: '夜宵' },
                     { src: src2, name: '商超便利' },
                     { src: src3, name: '水果' },
-                    { src: src4, name: '医药健康' },
-                    { src: src5, name: '浪漫鲜花' },
+                    
+                ],
+                [
                     { src: src6, name: '跑腿代购' },
                     { src: src7, name: '汉堡披萨' },
                     { src: src8, name: '厨房生鲜' },
                     { src: src14, name: '甜品饮品' },
+                    { src: src4, name: '医药健康' },
+                    { src: src5, name: '浪漫鲜花' },
+                    { src: src12, name: '大牌惠吃' },
+                    { src: src13, name: '素食' },
                 ],
                 [
                     { src: src10, name: '素食简餐' },
                     { src: src11, name: '地方小吃' },
-                    { src: src12, name: '大牌惠吃' },
-                    { src: src13, name: '素食' },
+                    
                 ]
             ]
         }
