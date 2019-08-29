@@ -35,7 +35,9 @@ export default class EleSwapper extends Component {
             //
             second: 1,
             // 是否是第一次滑动 如果是第一次滑动 页数不做处理
-            isFirstMove: true
+            isFirstMove: true,
+            // 滑动的时候只设置一次first 和 second
+            seted: false
         
         }
     }
@@ -109,17 +111,19 @@ export default class EleSwapper extends Component {
         this.setState({
             direction: transLen > 0 ? 'right' : 'left'
         })
-        console.log(this.state.currnetDisplay,this.state.direction,transLen)
+        console.log(this.state.currnetDisplay)
         if(this.state.currnetDisplay === 'first') {
-            if (total > 2) {// 如果只有两页 则不做任何页数处理
+            if (total > 2 && !this.state.seted) {// 如果只有两页 则不做任何页数处理
                 if (this.state.direction === 'left' && !this.state.isFirstMove) {
                     this.setState({
-                        second: this.state.second === total - 1 ? 0 : (this.state.first + 1)
+                        second: (this.state.first === total - 1) ? 0 : (this.state.first + 1),
+                        seted: true
                     })
                 } else if (this.state.direction === 'right'){
                     // 向右滑动
                     this.setState({
-                        second: this.state.first === 0 ? total - 1 : (this.state.first - 1)                        
+                        second: (this.state.first === 0) ? total - 1 : (this.state.first - 1),
+                        seted: true                        
                     })
                 }
             }
@@ -136,15 +140,17 @@ export default class EleSwapper extends Component {
  
         
         if(this.state.currnetDisplay === 'second') {
-            if (total > 2 ) {// 如果只有两页 则不做任何页数处理
+            if (total > 2 && !this.state.seted) {// 如果只有两页 则不做任何页数处理
                 if (this.state.direction === 'left' && !this.state.isFirstMove) {
                     this.setState({
-                        first: this.state.first === total - 1 ? 0 : (this.state.second + 1)
+                        first: (this.state.second === total - 1) ? 0 : (this.state.second + 1),
+                        seted: true
                     })
                 } else if (this.state.direction === 'right'){
                     // 向右滑动
                     this.setState({
-                        first: this.state.second === 0 ? total - 1 : (this.state.second - 1)
+                        first: this.state.second === 0 ? total - 1 : (this.state.second - 1),
+                        seted: true
                     })
                 }
             }
@@ -161,10 +167,9 @@ export default class EleSwapper extends Component {
 
     handleTouchStart(e, item) {
         e.persist()
-        console.log(e, item)
+        console.log(this.state.currentIndex)
         // 分页总数
         let target = item;
-        console.log(target)
         this.setState({
             isEnd: false,
             currnetDisplay: target,
@@ -177,6 +182,9 @@ export default class EleSwapper extends Component {
     // 处理 touchEnd 事件 需要使用 changedTouches  属性  targetTouched 属性为空
     handleTouchEnd(e) {
         e.persist();
+        this.setState({
+            seted: false
+        })
         // 滑动的长度
         let moveLen = (e.changedTouches[0]['pageX'] - this.state.touchStartPositionX) / 100;
         if(moveLen === 0) {// 解决点击事件 会引起后续函数的执行
@@ -188,7 +196,6 @@ export default class EleSwapper extends Component {
         
         // 划过去的容器
         // let target = e.targetTouches[0]['target']['dataset']['type'];
-        console.log(this.state.direction)
         let toLeft = this.state.direction === 'left';
         if (Math.abs(moveLen) > 1){
             this.setState({
@@ -219,8 +226,9 @@ export default class EleSwapper extends Component {
             let indexOfCurrent = this.state.currentIndex;
             let listLength = this.props.swapperList.length;
            
-            if(toLeft) {
+            if(!toLeft) {
                 if (indexOfCurrent === 0) {
+                    console.log('listLength', listLength)
                     this.setState({
                         currentIndex: listLength - 1
                     })
