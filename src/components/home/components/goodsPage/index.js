@@ -17,6 +17,7 @@ import src11 from '@/static/image/swapperimage/12iamge.png'
 import src12 from '@/static/image/swapperimage/13iamge.png'
 import src13 from '@/static/image/swapperimage/14iamge.png'
 import src14 from '@/static/image/swapperimage/15iamge.png'
+import purchase from '@/static/image/purchase.png'
 
 
 class HomePage extends Component {
@@ -24,13 +25,7 @@ class HomePage extends Component {
         super()
         this.state = {
             swapperList: [
-                [
-                    { src: src, name: '美食' },
-                    { src: src1, name: '夜宵' },
-                    { src: src2, name: '商超便利' },
-                    { src: src3, name: '水果' },
-                    
-                ],
+                
                 [
                     { src: src6, name: '跑腿代购' },
                     { src: src7, name: '汉堡披萨' },
@@ -45,6 +40,13 @@ class HomePage extends Component {
                     { src: src10, name: '素食简餐' },
                     { src: src11, name: '地方小吃' },
                     
+                ],
+                [
+                    { src: src, name: '美食' },
+                    { src: src1, name: '夜宵' },
+                    { src: src2, name: '商超便利' },
+                    { src: src3, name: '水果' },
+
                 ]
             ]
         }
@@ -52,11 +54,25 @@ class HomePage extends Component {
 
     render() {
         return (
-            <div>
+            <div className="gooods-page">
                 <EleSwapper
                     swapperList={ this.state.swapperList }
                 ></EleSwapper>
+                <div className="purchase">
+                    <div className="title">
+                        <h3>品质套餐</h3>
+                        <div className="sub-title">搭配齐全吃的好</div>
+                        <div className="purchase-right-now">立即抢购></div>
+                    </div>
+                    <div className="image">
+                        <img src={purchase} alt=""/>
+                    </div>
+                </div>
+                <h3 className="recommend">
+                    推荐商家
+                </h3>
             </div>
+            
         )
     }
 }
